@@ -1,0 +1,21 @@
+{
+  "name": "palette.js",
+  "version": "1.0.0",
+  "description": "data structure for colors",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "browserify": "^11.0.1",
+    "uglify-js": "^2.4.24",
+    "underscore": "^1.8.3",
+    "watchify": "^3.3.1"
+  },
+  "scripts": {
+    "build-debug": "browserify index.js -d --s palette > dist/palette.js",
+    "build-min": "browserify index.js --s palette | uglifyjs -c > dist/palette.min.js",
+    "build": "npm run build-debug && npm run build-min",
+    "watch": "watchify index.js -d --s palette -o dist/palette.js -v"
+  },
+  "author": "Nick Balestra",
+  "license": "MIT"
+}
