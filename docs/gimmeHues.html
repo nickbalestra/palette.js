@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>gimmeHues.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="formatBase.html">
+                  formatBase.js
+                </a>
+              
+                
+                <a class="source" href="gimmeAnalogous.html">
+                  gimmeAnalogous.js
+                </a>
+              
+                
+                <a class="source" href="gimmeHues.html">
+                  gimmeHues.js
+                </a>
+              
+                
+                <a class="source" href="gimmeTriads.html">
+                  gimmeTriads.js
+                </a>
+              
+                
+                <a class="source" href="hexToRgb.html">
+                  hexToRgb.js
+                </a>
+              
+                
+                <a class="source" href="hsvToRgb.html">
+                  hsvToRgb.js
+                </a>
+              
+                
+                <a class="source" href="randomBase.html">
+                  randomBase.js
+                </a>
+              
+                
+                <a class="source" href="rgbToHex.html">
+                  rgbToHex.js
+                </a>
+              
+                
+                <a class="source" href="rgbToHsv.html">
+                  rgbToHsv.js
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>gimmeHues.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-pi">'use strict'</span>;
+
+<span class="hljs-comment">/**
+ * It randomly picks hues that are not between 50° and 70° or 340° and 360°
+ * It checks if the difference between the previous and the next hue is
+ * between 30° and 160° or 200° and 330°
+ * it adjusts the saturation and the brightness according to the listed values (see below)
+ *
+ * @param   Number  nHues   The number of hues to generate
+ * @return  Array           The generated colors
+ */</span>
+<span class="hljs-keyword">var</span> gimmeHues = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">nHues</span>)</span>{
+  nHues = nHues || <span class="hljs-number">5</span>;
+  <span class="hljs-keyword">var</span> context = <span class="hljs-keyword">this</span>;
+  <span class="hljs-keyword">var</span> hue = <span class="hljs-keyword">this</span>.baseColor.hsv[<span class="hljs-string">'H'</span>];
+  <span class="hljs-keyword">var</span> hues = [];
+
+  <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; nHues; i++) {
+    <span class="hljs-keyword">var</span> previousHue = hue;
+
+    <span class="hljs-keyword">do</span> {
+      hue = (previousHue + (<span class="hljs-built_in">Math</span>.random() * <span class="hljs-number">4294967296</span> % <span class="hljs-number">101</span> + <span class="hljs-number">60</span>)) % <span class="hljs-number">360</span>;
+    } <span class="hljs-keyword">while</span> ( (hue &gt; <span class="hljs-number">50</span> &amp;&amp; hue &lt; <span class="hljs-number">70</span>) || (hue &gt; <span class="hljs-number">340</span> &amp;&amp; hue &lt; <span class="hljs-number">360</span>) );
+
+    <span class="hljs-keyword">if</span> (hue !== previousHue) {
+      hues.push(hue);
+    }
+  }
+
+
+  hues = hues.map(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">hue</span>)</span>{
+    <span class="hljs-keyword">var</span> saturation = <span class="hljs-number">70</span>;
+    <span class="hljs-keyword">var</span> value = <span class="hljs-number">60</span>;
+
+    <span class="hljs-keyword">if</span> (hue &gt;= <span class="hljs-number">0</span> &amp;&amp; hue &lt; <span class="hljs-number">20</span>) {
+      saturation = <span class="hljs-number">70</span>;
+      value = <span class="hljs-number">85</span>;
+    }
+    <span class="hljs-keyword">if</span> (hue &gt;= <span class="hljs-number">20</span> &amp;&amp; hue &lt; <span class="hljs-number">50</span>) {
+      saturation = <span class="hljs-number">80</span>;
+      value = <span class="hljs-number">85</span>;
+    }
+    <span class="hljs-keyword">if</span> (hue &gt;= <span class="hljs-number">70</span> &amp;&amp; hue &lt; <span class="hljs-number">220</span>) {
+      saturation = <span class="hljs-number">65</span>;
+      value = <span class="hljs-number">70</span>;
+    }
+    <span class="hljs-keyword">if</span> (hue &gt;= <span class="hljs-number">200</span> &amp;&amp; hue &lt; <span class="hljs-number">220</span>) {
+      saturation = <span class="hljs-number">65</span>;
+      value = <span class="hljs-number">80</span>;
+    }
+    <span class="hljs-keyword">if</span> (hue &gt;= <span class="hljs-number">220</span> &amp;&amp; hue &lt; <span class="hljs-number">280</span>) {
+      saturation = <span class="hljs-number">60</span>;
+      value = <span class="hljs-number">90</span>;
+    }
+    <span class="hljs-keyword">if</span> (hue &gt;= <span class="hljs-number">280</span> &amp;&amp; hue &lt; <span class="hljs-number">320</span>) {
+      saturation = <span class="hljs-number">60</span>;
+      value = <span class="hljs-number">85</span>;
+    }
+    <span class="hljs-keyword">if</span> (hue &gt;= <span class="hljs-number">320</span> &amp;&amp; hue &lt; <span class="hljs-number">340</span>) {
+      saturation = <span class="hljs-number">70</span>;
+      value = <span class="hljs-number">85</span>;
+    }
+
+    <span class="hljs-keyword">var</span> RGB = context.hsvToRgb(hue, saturation, value);
+    <span class="hljs-keyword">var</span> HEX = context.rgbToHex(RGB[<span class="hljs-number">0</span>], RGB[<span class="hljs-number">1</span>], RGB[<span class="hljs-number">2</span>]);
+    <span class="hljs-keyword">return</span> HEX;
+  });
+
+  hues.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">hex</span>)</span>{
+    context.hues.push(<span class="hljs-keyword">new</span> Palette(hex));
+  })
+  <span class="hljs-keyword">return</span> hues;
+};
+
+<span class="hljs-built_in">module</span>.exports = gimmeHues;</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

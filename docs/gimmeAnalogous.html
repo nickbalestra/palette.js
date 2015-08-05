@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>gimmeAnalogous.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="formatBase.html">
+                  formatBase.js
+                </a>
+              
+                
+                <a class="source" href="gimmeAnalogous.html">
+                  gimmeAnalogous.js
+                </a>
+              
+                
+                <a class="source" href="gimmeHues.html">
+                  gimmeHues.js
+                </a>
+              
+                
+                <a class="source" href="gimmeTriads.html">
+                  gimmeTriads.js
+                </a>
+              
+                
+                <a class="source" href="hexToRgb.html">
+                  hexToRgb.js
+                </a>
+              
+                
+                <a class="source" href="hsvToRgb.html">
+                  hsvToRgb.js
+                </a>
+              
+                
+                <a class="source" href="randomBase.html">
+                  randomBase.js
+                </a>
+              
+                
+                <a class="source" href="rgbToHex.html">
+                  rgbToHex.js
+                </a>
+              
+                
+                <a class="source" href="rgbToHsv.html">
+                  rgbToHsv.js
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>gimmeAnalogous.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-pi">'use strict'</span>;
+
+<span class="hljs-comment">/**
+ * TODO
+ *
+ * @param   Number  num     The number of analogous to generate
+ * @return  Array           The generated colors
+ */</span>
+<span class="hljs-keyword">var</span> gimmeAnalogous = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">num</span>)</span>{
+  num = num || <span class="hljs-number">5</span>;
+  <span class="hljs-keyword">var</span> analogous = [];
+  <span class="hljs-keyword">var</span> hue;
+  <span class="hljs-keyword">var</span> saturation;
+  <span class="hljs-keyword">var</span> value;
+
+  <span class="hljs-keyword">for</span> ( <span class="hljs-keyword">var</span> i = <span class="hljs-number">1</span>; i &lt;= num; i++ ) {
+
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.analogous.length === <span class="hljs-number">0</span>) {
+      hue = <span class="hljs-keyword">this</span>.baseColor.hsv[<span class="hljs-string">'H'</span>];
+      saturation = <span class="hljs-keyword">this</span>.baseColor.hsv[<span class="hljs-string">'S'</span>];
+      value = <span class="hljs-keyword">this</span>.baseColor.hsv[<span class="hljs-string">'V'</span>];
+    } <span class="hljs-keyword">else</span> {
+      hue = <span class="hljs-keyword">this</span>.analogous[<span class="hljs-keyword">this</span>.analogous.length - <span class="hljs-number">1</span>][<span class="hljs-string">'baseColor'</span>][<span class="hljs-string">'hsv'</span>][<span class="hljs-string">'H'</span>];
+      saturation = <span class="hljs-keyword">this</span>.analogous[<span class="hljs-keyword">this</span>.analogous.length - <span class="hljs-number">1</span>][<span class="hljs-string">'baseColor'</span>][<span class="hljs-string">'hsv'</span>][<span class="hljs-string">'S'</span>];
+      value = <span class="hljs-keyword">this</span>.analogous[<span class="hljs-keyword">this</span>.analogous.length - <span class="hljs-number">1</span>][<span class="hljs-string">'baseColor'</span>][<span class="hljs-string">'hsv'</span>][<span class="hljs-string">'V'</span>];
+    }
+    hue = ( hue + ( <span class="hljs-number">20</span> * i ) ) % <span class="hljs-number">360</span>;
+
+    <span class="hljs-keyword">var</span> RGB = <span class="hljs-keyword">this</span>.hsvToRgb(hue, saturation, value);
+    <span class="hljs-keyword">var</span> HEX = <span class="hljs-keyword">this</span>.rgbToHex(RGB[<span class="hljs-number">0</span>], RGB[<span class="hljs-number">1</span>], RGB[<span class="hljs-number">2</span>]);
+
+    <span class="hljs-keyword">var</span> exist = <span class="hljs-literal">false</span>;
+
+    <span class="hljs-keyword">this</span>.analogous.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">color</span>)</span>{
+      <span class="hljs-keyword">if</span> (color[<span class="hljs-string">'baseColor'</span>][<span class="hljs-string">'hex'</span>] === HEX) {
+        exist = <span class="hljs-literal">true</span>;
+      }
+    })
+    <span class="hljs-keyword">if</span> (!exist) {
+      <span class="hljs-keyword">this</span>.analogous.push( <span class="hljs-keyword">new</span> Palette(HEX) );
+      analogous.push(HEX);
+    }
+  }
+  <span class="hljs-keyword">return</span> analogous;
+};
+
+<span class="hljs-built_in">module</span>.exports = gimmeAnalogous;</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>
