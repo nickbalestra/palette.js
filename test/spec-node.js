@@ -1,3 +1,6 @@
+var expect = require('../node_modules/chai/chai').expect;
+var Palette = require('../dist/palette.js');
+
 describe('Palette.js', function() {
   var palette;
 
@@ -81,11 +84,7 @@ describe('Palette.js', function() {
     expect(palette.hsvToRgb(0, 0.5, 1)).to.eql([255, 128, 128]);
   });
 
-  it('gimmeHues should return n hues and append hue nodes to the tree', function() {
-    var hues = palette.gimmeHues(5);
-    expect(hues.length).to.eql(5);
-    expect(palette.hues.length).to.eql(5);
-  });
+
 
 
 

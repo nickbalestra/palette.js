@@ -14,15 +14,10 @@ var gulp = require('gulp'),
 
 // Run mocha tests
 gulp.task('test', function () {
-  return gulp.src('./test/spec.js', {read: false})
+  return gulp.src('./test/spec-node.js', {read: false})
     .pipe(mocha({reporter: 'nyan'}));
 });
 
-gulp.task('testt', function () {
-    return gulp
-    .src('test/SpecRunner.html')
-    .pipe(mochaPhantomJS());
-});
 
 // Build compiles coffeeScript into javaScript
 gulp.task('build', function() {
