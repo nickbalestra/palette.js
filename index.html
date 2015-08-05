@@ -1,12 +1,90 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html>
 <head>
-  <title>browserify module</title>
+  <title>index.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
 </head>
 <body>
-  <script src="dist/palette.js"></script>
-  <script>
-    var p = new Palette('#55acee');
-  </script>
+  <div id="container">
+    <div id="background"></div>
+
+    <ul class="sections">
+
+          <li id="title">
+              <div class="annotation">
+                  <h1>index.js</h1>
+              </div>
+          </li>
+
+
+
+        <li id="section-1">
+            <div class="annotation">
+
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <h3 id="palette">Palette.js files</h3>
+              <ul>
+              <li><a href="formatBase.html">formatBase.js</a></li>
+              <li><a href="gimmeAnalogous.html">gimmeAnalogous.js</a></li>
+              <li><a href="gimmeHues.html">gimmeHues.js</a></li>
+              <li><a href="gimmeTriads.html">gimmeTriads.js</a></li>
+              <li><a href="hexToRgb.html">hexToRgb.js</a></li>
+              <li><a href="hsvToRgb.html">hsvToRgb.js</a></li>
+              <li><a href="randomBase.html">randomBase.js</a></li>
+              <li><a href="rgbToHex.html">rgbToHex.js</a></li>
+              <li><a href="rgbToHsv.html">rgbToHsv.js</a></li>
+              </ul>
+            </div>
+
+            <div class="content"><div class='highlight'><pre><span class="hljs-pi">'use strict'</span>
+
+<span class="hljs-keyword">var</span> Palette = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">baseColor</span>)</span>{
+  <span class="hljs-keyword">this</span>.baseColor = <span class="hljs-keyword">this</span>.formatBase( baseColor || <span class="hljs-keyword">this</span>.randomBase() );
+  <span class="hljs-keyword">this</span>.monochroms = [];
+  <span class="hljs-keyword">this</span>.analogous = [];
+  <span class="hljs-keyword">this</span>.tetrads = [];
+  <span class="hljs-keyword">this</span>.triads = [];
+  <span class="hljs-keyword">this</span>.hues = [];
+}
+
+Palette.prototype.hexToRgb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./src/hexToRgb'</span>);
+Palette.prototype.rgbToHex = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./src/rgbToHex'</span>);
+Palette.prototype.hsvToRgb = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./src/hsvToRgb'</span>);
+Palette.prototype.rgbToHsv = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./src/rgbToHsv'</span>);
+Palette.prototype.formatBase = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./src/formatBase'</span>);
+Palette.prototype.randomBase = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./src/randomBase'</span>);
+
+Palette.prototype.gimmeHues = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./src/gimmeHues'</span>);
+Palette.prototype.gimmeAnalogous = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./src/gimmeAnalogous'</span>);
+Palette.prototype.gimmeTriads = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./src/gimmeTriads'</span>);</pre></div></div>
+
+        </li>
+
+
+        <li id="section-2">
+            <div class="annotation">
+
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>TODO
+Palette.prototype.gimmeSplitComplements = function(){};
+Palette.prototype.gimmeMonochroms = function(){};
+Palette.prototype.gimmeTetrads = function(){};</p>
+
+            </div>
+
+            <div class="content"><div class='highlight'><pre>
+<span class="hljs-built_in">module</span>.exports = Palette;</pre></div></div>
+
+        </li>
+
+    </ul>
+  </div>
 </body>
 </html>
